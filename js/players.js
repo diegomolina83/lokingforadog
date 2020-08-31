@@ -51,7 +51,7 @@ class Players {
             case 'right':
                 if(this.playersPosition.x<512-100)
                 this.playersSpeed.x +=2  
-                else console.log("muy bien chumacho")
+                else this.playersSpeed.x =0
                 break;
             case 'down':
                 this.dimension='down'

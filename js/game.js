@@ -21,11 +21,14 @@ const popinoGame={
     background:undefined,
     playerSpeedX:undefined,
     playerSpeedY:undefined,
-    balcony:undefined,
+    balcony0:undefined,
+    balcony1:undefined,
+    balcony2:undefined,
+
     balconies:[
         
     ],
-    fps:60,
+    fps:75,
     canvasSize:{
         w:1024,
         h:600
@@ -36,8 +39,8 @@ const popinoGame={
         this.setEventListeners()
         this.canvasId=id,
         this.ctx=document.getElementById(this.canvasId).getContext('2d')
-        // this.drawBalconies()
         this.pushBalconies()
+        this.drawBalconies()
         this.drawPlayer()
         this.drawBackground()
         setInterval(() => {
@@ -52,18 +55,25 @@ const popinoGame={
         this.player.draw()
         this.moveBackground()
         this.player.move()
-        this.balcony.draw()
-        this.balcony1.draw()
-        this.balcony2.draw()
+        this.drawBalconies()
+        this.balconies.forEach(element => {
+            element.draw()
+        });
+        // this.balcony0.draw()
+        // this.balcony1.draw()
+        // this.balcony2.draw()
                  
     },
     pushBalconies(){
-        this.balcony=new Balcony(this.ctx,30,30,67,240,this.canvasSize,-0.3)
-        this.balcony1=new Balcony(this.ctx,30,30,600,240,this.canvasSize,-0.3)
-        this.balcony2=new Balcony(this.ctx,30,30,200,240,this.canvasSize,-0.3)
-        // this.balconies.push(this.balcony0)
-        // this.balconies.push(this.balcony1)
-        // this.balconies.push(this.balcony2)
+        this.balcony0=new Balcony(this.ctx,30,30,57+1024,240,this.canvasSize,-0.3)
+        this.balcony1=new Balcony(this.ctx,31,31,290+1024,240,this.canvasSize,-0.3)
+        this.balcony2=new Balcony(this.ctx,32,32,626+1024,240,this.canvasSize,-0.3)
+        this.balcony3=new Balcony(this.ctx,33,33,875+1024,225,this.canvasSize,-0.3)
+
+        this.balconies.push(this.balcony0)
+        this.balconies.push(this.balcony1)
+        this.balconies.push(this.balcony2)
+        this.balconies.push(this.balcony3)
         console.log("balcones",this.balconies)
     },
 
@@ -81,8 +91,20 @@ const popinoGame={
     drawBalconies(){
         // this.balcony=new Balcony(this.ctx,30,30,67,240,this.canvasSize,-0.3)
         // this.balcony2=new Balcony(this.ctx,30,30,67+1024,240,this.canvasSize,-0.3)
+// console.log("entra")
+//         for(let i=0;this.balconies.length>3;i++){
+//             //console.log(`this.balcony${i}`)
+//             this.balconies.shift()
 
-        // for(let i=0;i<this.balconies.length;i++){
+//             if(this.balconies[i].balconyPosition.x<10) this.balconies.shift()
+//             else this.balconies.push(eval(`this.balcony${i}`))
+
+//         }
+
+if(this.balconies[0].balconyPosition.x<10) {
+    this.balconies[0].balconyPosition.x +=1024
+    this.balconies[0].draw()
+        this.balconies.push (this.balconies.shift())}
 
         
 
@@ -96,11 +118,13 @@ const popinoGame={
         if(this.player.playersPosition.x<512-100) this.player.move(direction)
         else {(
             this.player.playersPosition.x=512-100) 
-            this.player.move(direction)
+            if(direction!='right'){
+            this.player.move(direction)}
             this.background.move(direction)
-            this.balcony.move(direction)
+            this.balcony0.move(direction)
             this.balcony1.move(direction)
             this.balcony2.move(direction)
+            this.balcony3.move(direction)
 
         }
         
