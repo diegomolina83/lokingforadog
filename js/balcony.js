@@ -34,7 +34,7 @@ class Balcony {
         this.balconyPosition.x -=4
         if(this.balconyPosition.x<=-this.balconySize.w) this.balconyPosition.x=0
         if(direction=='right'){
-                    // this.balconyPosition.x +=this.balconySpeed
+        this.balconyPosition.x +=this.balconySpeed
         }
         }
 
