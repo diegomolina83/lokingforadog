@@ -19,7 +19,7 @@ class Background{
     this.move()
   }
   move(direction) {
-    this.bgPosX -=10
+    this.bgPosX -=4
     if(this.bgPosX<=-this.bgSizeW) this.bgPosX=0
     if(direction=='right'){
       console.log(this.bgSpeed)

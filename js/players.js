@@ -49,18 +49,19 @@ class Players {
                 this.playerIsJumping= true
                 break;
             case 'right':
-                if(this.playersPosition.x!=512-100)
+                if(this.playersPosition.x<512-100)
                 this.playersSpeed.x +=2  
-                else this.playersSpeed.x=0.2
+                else console.log("muy bien chumacho")
                 break;
             case 'down':
                 this.dimension='down'
                 this.playersPosition.y+=50
                 break;
             case 'up':
+                if(this.playerIsJumping==false){
                 this.dimension='up'
                 if(this.playersPosition.y<350)
-                this.playersPosition.y-=50
+                this.playersPosition.y-=50}
                 break;
         }
        
