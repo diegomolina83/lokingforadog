@@ -22,6 +22,9 @@ class Players {
         this.imageInstance=undefined
         this.playerIsJumping=false
         this.dimension=false
+        
+
+
         this.init() 
 
     }
@@ -33,7 +36,10 @@ class Players {
 
     draw(){
      
-        this.ctx.fillRect(this.playersPosition.x,this.playersPosition.y,50,50)
+        this.playersImage = new Image();
+        this.playersImage.src = 'img/static_character.png'
+                
+        this.ctx.drawImage(this.playersImage,this.playersPosition.x,this.playersPosition.y,49,63)
   
   
 }
@@ -79,12 +85,12 @@ class Players {
         this.playersSpeed.y *= 0.9;// friction
 
         //para mantenerlo por encima de la linea de suelo
-        if (this.playersPosition.y > 450) {
+        if (this.playersPosition.y > 440) {
 
             this.playerIsJumping= false;
-            if (this.dimension=='down') this.playersPosition.y=480
-            else if(this.dimension=='up' && this.playersPosition.y==480) this.playersPosition.y=450
-            else  this.playersPosition.y = 450;
+            if (this.dimension=='down') this.playersPosition.y=470
+            else if(this.dimension=='up' && this.playersPosition.y==470) this.playersPosition.y=440
+            else  this.playersPosition.y = 440;
             this.playersSpeed.y = 0;
         
           }

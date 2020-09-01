@@ -14,7 +14,7 @@ class Dog {
             y: y
         }
         this.canvasSize=canvasSize
-        this.playersImage = imageName
+        this.dogImage = imageName
         this.imageInstance=undefined
         this.init() 
 
@@ -26,7 +26,10 @@ this.gone()
     }
 
     draw(){
-        this.ctx.fillRect(this.dogPosition.x,this.dogPosition.y,this.dogWidth.w,this.dogWidth.h)
+        this.dogImage = new Image();
+        this.dogImage.src = 'img/perri.png'
+                
+        this.ctx.drawImage(this.dogImage,this.dogPosition.x,this.dogPosition.y,49,63)
     }
 
     gone(){

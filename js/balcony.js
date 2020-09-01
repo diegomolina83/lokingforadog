@@ -4,7 +4,6 @@ class Balcony {
 
         this.ctx = ctx
         this.imageInBalcony=image
-        console.log("------image balcony",this.imageBalcony)
         this.balconySize = {
             w: width,
             h: height
