@@ -35,7 +35,7 @@ class Players {
     }
 
     draw(){
-     
+        
         this.playersImage = new Image();
         this.playersImage.src = 'img/static_character.png'
                 
@@ -43,6 +43,7 @@ class Players {
   
   
 }
+
 
 
     

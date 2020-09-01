@@ -58,6 +58,7 @@ const popinoGame={
         
     },
     drawGame(){
+        this.collision()
         this.randomizeNumbers()
         this.clearScreen()
         this.background.draw()
@@ -213,9 +214,43 @@ if(this.balconies[0].balconyPosition.x<0) {
         
 
     
-}
+},
+
+
+collision(){
+
+    // this.player.playersPosition.x
+    // this.player.playersPosition.y
+    // this.player.playersWidth.w
+    // this.player.playersWidth.h
+
+    this.fallOutObjects.forEach(element => {
+        if (this.player.playersPosition.x < element.fallOutObjectPosition.x + element.fallOutObjectSize.w &&
+            this.player.playersPosition.x + this.player.playersWidth.w > element.fallOutObjectPosition.x &&
+            this.player.playersPosition.y < element.fallOutObjectPosition.y + element.fallOutObjectSize.h &&
+            this.player.playersWidth.h + element.fallOutObjectPosition.y > element.fallOutObjectPosition.y) {
+             alert("colision")
+         }
+        
+    });
+    //player con objetos
+    
+    
 }
 
+}
+
+
+// this.player.playersPosition.x
+//     this.player.playersPosition.y
+//     this.player.playersWidth.w
+//     this.player.playersWidth.y
+//     this.fallOutObjects.forEach(element => {
+//         if (this.player.playersPosition.x < rect2.x + rect2.width &&
+//             this.player.playersPosition.x + this.player.playersWidth.w > rect2.x &&
+//             this.player.playersPosition.y < rect2.y + rect2.height &&
+//             this.player.playersWidth.h + this.player.playersPosition.y > rect2.y) {
+//              // ¡colision detecta
 
 
 
