@@ -28,7 +28,7 @@ const popinoGame={
     balconies:[
         
     ],
-    fps:75,
+    fps:60,
     canvasSize:{
         w:1024,
         h:600
@@ -84,7 +84,7 @@ const popinoGame={
     },
     drawBackground(){
         const img = new Image();
-        const backgroundSpeed = playerSpeedX*(-0.3)
+        const backgroundSpeed = playerSpeedX*(-1)
         img.src = 'https://chupacdn.s3.amazonaws.com/catalog/product/cache/4/thumbnail/1280x/17f82f742ffe127f42dca9de82fb58b1/1/0/10-vector-game-backgrounds-16253_imgs_16253_1.jpg'
         this.background= new Background(this.ctx,0,0,this.canvasSize.w,this.canvasSize.h,backgroundSpeed,img)
     },
@@ -133,10 +133,12 @@ if(this.balconies[0].balconyPosition.x<10) {
     setEventListeners() {
         document.onkeydown = e => {
             e.keyCode === 37 ? this.moveBackground('left') : null
-            e.keyCode === 39 ? this.moveBackground('right') : null
             e.keyCode === 17 ? this.moveBackground('jump'):null
             e.keyCode === 40 ? this.moveBackground('down'):null
             e.keyCode === 38 ? this.moveBackground('up'):null
+            if(e.keyCode === 39) if(this.player.playersPosition.x<512-100)
+             this.moveBackground('right') 
+
 
             
         }
