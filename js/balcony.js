@@ -1,9 +1,10 @@
 class Balcony {
 
-    constructor(ctx, width, height, x, y, canvasSize, speed){
+    constructor(ctx, width, height, x, y, canvasSize, speed,image){
 
         this.ctx = ctx
-
+        this.imageInBalcony=image
+        console.log("------image balcony",this.imageBalcony)
         this.balconySize = {
             w: width,
             h: height
@@ -21,13 +22,15 @@ class Balcony {
     }
     init(){
         this.draw()
+        // this.fall()
         
     }
 
     draw(){
-        
-        this.ctx.fillStyle="red"
-        this.ctx.fillRect(this.balconyPosition.x,this.balconyPosition.y,25,25)
+        this.imageBalcony = new Image();
+        this.imageBalcony.src = this.imageInBalcony
+                
+        this.ctx.drawImage(this.imageBalcony,this.balconyPosition.x,this.balconyPosition.y,35,45)
 
     }
     move(direction) {
@@ -38,4 +41,7 @@ class Balcony {
         }
         }
 
+  
+
 }
+

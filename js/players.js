@@ -27,13 +27,19 @@ class Players {
     }
     init(){
         this.draw()
+
         
     }
 
     draw(){
+     
         this.ctx.fillRect(this.playersPosition.x,this.playersPosition.y,50,50)
+  
+  
+}
 
-    }
+
+    
     move(direction){
         //movemos a player hasta la mitad del canvas
 
@@ -45,7 +51,7 @@ class Players {
                 break;
             case 'jump':
                 if(this.playerIsJumping==false)
-                this.playersSpeed.y -=40
+                this.playersSpeed.y -=35
                 this.playerIsJumping= true
                 break;
             case 'right':

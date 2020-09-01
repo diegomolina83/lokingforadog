@@ -19,6 +19,8 @@ const popinoGame={
     ctx:undefined,
     player:undefined,
     background:undefined,
+    enemy:undefined,
+    enemies:[],
     playerSpeedX:undefined,
     playerSpeedY:undefined,
     balcony0:undefined,
@@ -43,6 +45,8 @@ const popinoGame={
         this.drawBalconies()
         this.drawPlayer()
         this.drawBackground()
+        this.drawDog()
+        this.drawEnemies()
         setInterval(() => {
             this.drawGame()
 
@@ -56,19 +60,24 @@ const popinoGame={
         this.moveBackground()
         this.player.move()
         this.drawBalconies()
+        this.dog.draw()
+        this.enemy.draw()
+        this.enemy2.draw()
         this.balconies.forEach(element => {
             element.draw()
         });
-        // this.balcony0.draw()
-        // this.balcony1.draw()
-        // this.balcony2.draw()
+        // this.balconies.forEach(element => {
+        //     element.fall()
+        // });
+        
+     
                  
     },
     pushBalconies(){
-        this.balcony0=new Balcony(this.ctx,30,30,57+1024,240,this.canvasSize,-0.3)
-        this.balcony1=new Balcony(this.ctx,31,31,290+1024,240,this.canvasSize,-0.3)
-        this.balcony2=new Balcony(this.ctx,32,32,626+1024,240,this.canvasSize,-0.3)
-        this.balcony3=new Balcony(this.ctx,33,33,875+1024,225,this.canvasSize,-0.3)
+        this.balcony0=new Balcony(this.ctx,30,30,57+1024,230,this.canvasSize,-0.3,'./img/window1.png')
+        this.balcony1=new Balcony(this.ctx,31,31,290+1024,230,this.canvasSize,-0.3,'./img/window2.png')
+        this.balcony2=new Balcony(this.ctx,32,32,626+1024,230,this.canvasSize,-0.3,'./img/window3.png')
+        this.balcony3=new Balcony(this.ctx,33,33,875+1024,215,this.canvasSize,-0.3,'./img/window4.png')
 
         this.balconies.push(this.balcony0)
         this.balconies.push(this.balcony1)
@@ -76,38 +85,39 @@ const popinoGame={
         this.balconies.push(this.balcony3)
         console.log("balcones",this.balconies)
     },
+    drawDog(){
+        this.dog=new Dog(this.ctx, 25, 25, 150, 475, this.canvasSize,'dog.png')
+    },
 
     drawPlayer(){
         playerSpeedX= 1
-        this.player= new Players(this.ctx,100,100,200,400,this.canvasSize,3,1,100,'player.png')
+        this.player= new Players(this.ctx,100,100,75,400,this.canvasSize,3,1,100,'player.png')
         
     },
     drawBackground(){
         const img = new Image();
         const backgroundSpeed = playerSpeedX*(-1)
-        img.src = 'https://chupacdn.s3.amazonaws.com/catalog/product/cache/4/thumbnail/1280x/17f82f742ffe127f42dca9de82fb58b1/1/0/10-vector-game-backgrounds-16253_imgs_16253_1.jpg'
+        img.src = 'http://www.cylabeth.com/ironhack/img/background_game.jpg'
         this.background= new Background(this.ctx,0,0,this.canvasSize.w,this.canvasSize.h,backgroundSpeed,img)
     },
     drawBalconies(){
-        // this.balcony=new Balcony(this.ctx,30,30,67,240,this.canvasSize,-0.3)
-        // this.balcony2=new Balcony(this.ctx,30,30,67+1024,240,this.canvasSize,-0.3)
-// console.log("entra")
-//         for(let i=0;this.balconies.length>3;i++){
-//             //console.log(`this.balcony${i}`)
-//             this.balconies.shift()
 
-//             if(this.balconies[i].balconyPosition.x<10) this.balconies.shift()
-//             else this.balconies.push(eval(`this.balcony${i}`))
-
-//         }
-
-if(this.balconies[0].balconyPosition.x<10) {
+if(this.balconies[0].balconyPosition.x<0) {
     this.balconies[0].balconyPosition.x +=1024
     this.balconies[0].draw()
         this.balconies.push (this.balconies.shift())}
 
         
 
+    },
+    drawFallOutObjects(){
+
+    },
+    drawEnemies(){
+        this.enemy= new Enemies(this.ctx,100,100,75+1024,450,this.canvasSize,1)
+        this.enemy2= new Enemies(this.ctx,100,100,75+1024,480,this.canvasSize,1)
+
+        console.log(this.enemy)
     },
     
     
@@ -125,6 +135,8 @@ if(this.balconies[0].balconyPosition.x<10) {
             this.balcony1.move(direction)
             this.balcony2.move(direction)
             this.balcony3.move(direction)
+            this.enemy.move(direction)
+            this.enemy2.move(direction)
 
         }
         
@@ -138,8 +150,6 @@ if(this.balconies[0].balconyPosition.x<10) {
             e.keyCode === 38 ? this.moveBackground('up'):null
             if(e.keyCode === 39) if(this.player.playersPosition.x<512-100)
              this.moveBackground('right') 
-
-
             
         }
        
