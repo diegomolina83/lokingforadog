@@ -11,6 +11,9 @@
 + Diferenciar entre colisionar con buenos y malos
 + Investigar movimiento personajes frame a frame
 + Deshabilitar botón después de comenzar juego o hacer focus al canvas
++ Hacer Array de objetos para que se seleccionen random
++ Aleatorizar la caida de objetos
+
 
 
 
@@ -22,6 +25,7 @@
 + establecer un time-up: o se termina la partida porque te matan o porque se te ha acabado el tiempo
 + hacer "3 dimensiones"
 + Poner bocadillos de texto arriba con frases graciosas
++ Cuando te paras pierdes puntos
 
 # Sonidos
 

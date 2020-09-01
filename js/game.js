@@ -28,6 +28,7 @@ const popinoGame={
     balcony2:undefined,
     randomPosition:undefined,
     fallOutObject:undefined,
+    fallOutObjects:[],
 
     balconies:[
         
@@ -43,13 +44,13 @@ const popinoGame={
         this.setEventListeners()
         this.canvasId=id,
         this.ctx=document.getElementById(this.canvasId).getContext('2d')
-        this.drawFallOutObjects()
         this.pushElements()
         this.drawBalconies()
         this.drawPlayer()
         this.drawBackground()
         this.drawDog()
         this.drawEnemies()
+        this.drawFallOutObjects()
         setInterval(() => {
             this.drawGame()
 
@@ -63,10 +64,10 @@ const popinoGame={
         this.player.draw()
         this.moveBackground()
         this.player.move()
+        this.drawFallOutObjects()
         this.drawBalconies()
         this.drawEnemies()
         this.dog.draw()
-        this.fallOutObject.draw()
         this.balconies.forEach(element => {
             element.draw()
         });
@@ -75,9 +76,13 @@ const popinoGame={
             element.draw()
             
         });
-        // this.balconies.forEach(element => {
-        //     element.fall()
-        // });
+        this.fallOutObjects.forEach(element => {
+            element.draw()
+        });
+        this.fallOutObjects.forEach(element => {
+            element.fall()
+        });
+       
         
      
                  
@@ -89,17 +94,32 @@ const popinoGame={
     },
 
     pushElements(){
+        
+        //Dibujamos balcones
         this.balcony0=new Balcony(this.ctx,30,30,57+1024,230,this.canvasSize,-0.3,'./img/window1.png')
         this.balcony1=new Balcony(this.ctx,31,31,290+1024,230,this.canvasSize,-0.3,'./img/window2.png')
         this.balcony2=new Balcony(this.ctx,32,32,626+1024,230,this.canvasSize,-0.3,'./img/window3.png')
         this.balcony3=new Balcony(this.ctx,33,33,875+1024,215,this.canvasSize,-0.3,'./img/window4.png')
 
-
         this.balconies.push(this.balcony0)
         this.balconies.push(this.balcony1)
         this.balconies.push(this.balcony2)
         this.balconies.push(this.balcony3)
-        console.log("balcones",this.balconies)
+
+        //Dibujamos objetos que caen de los balcones
+        this.fallOutObject0=new FallOutObjects(this.ctx,40,40,57+1024,240,this.canvasSize,'img/papel.png',1)
+        this.fallOutObject1=new FallOutObjects(this.ctx,40,40,290+1024,240,this.canvasSize,'img/virus.png',1)
+        this.fallOutObject2=new FallOutObjects(this.ctx,30,30,626+1024,240,this.canvasSize,'img/caca.png',1)
+        this.fallOutObject3=new FallOutObjects(this.ctx,30,30,875+1024,225,this.canvasSize,'img/sandia.png',1)
+
+        this.fallOutObjects.push(this.fallOutObject0)
+        this.fallOutObjects.push(this.fallOutObject1)
+        this.fallOutObjects.push(this.fallOutObject2)
+        this.fallOutObjects.push(this.fallOutObject3)
+
+
+        
+        //Dibujamos a los enemigos
         this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,440,this.canvasSize,1,"./img/vecino1.png"))
         this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,470,this.canvasSize,1,"./img/vecino2.png"))
         this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,470,this.canvasSize,1,"./img/vecino1.png"))
@@ -126,14 +146,18 @@ const popinoGame={
 if(this.balconies[0].balconyPosition.x<0) {
     this.balconies[0].balconyPosition.x +=1024
     this.balconies[0].draw()
-        this.balconies.push (this.balconies.shift())}
+    this.balconies.push (this.balconies.shift())}
 
         
 
     },
     drawFallOutObjects(){
-        this.fallOutObject = new FallOutObjects(this.ctx,10,10,57+1024,230,this.canvasSize)
-
+        if(this.fallOutObjects[0].fallOutObjectPosition.x<0) {
+            this.fallOutObjects[0].fallOutObjectPosition.x +=1024
+            this.fallOutObjects[0].draw()
+            this.fallOutObjects.push (this.fallOutObjects.shift())}
+        console.log("salida",this.fallOutObjects)
+            
     },
     drawEnemies(){
             
@@ -156,15 +180,19 @@ if(this.balconies[0].balconyPosition.x<0) {
             if(direction!='right'){
             this.player.move(direction)}
             this.background.move(direction)
-            this.balcony0.move(direction)
-            this.balcony1.move(direction)
-            this.balcony2.move(direction)
-            this.balcony3.move(direction)
+          
+            this.balconies.forEach(element=>{
+                element.move(direction)
+            })
+
             this.enemies.forEach(element => {
                     element.move(direction)
     
                 });
-            // this.enemies[0].move(direction)
+            this.fallOutObjects.forEach(element => {
+                    element.move(direction)
+                });
+            
             
 
         }
