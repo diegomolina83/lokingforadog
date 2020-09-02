@@ -17,6 +17,7 @@ const popinoGame={
     license:'',
     description:'The best game of the world',
     ctx:undefined,
+    score:0,
     player:undefined,
     background:undefined,
     enemy:undefined,
@@ -49,6 +50,7 @@ const popinoGame={
         this.drawPlayer()
         this.drawBackground()
         this.drawDog()
+        this.drawScore()
         this.drawEnemies()
         this.drawFallOutObjects()
         setInterval(() => {
@@ -58,6 +60,7 @@ const popinoGame={
         
     },
     drawGame(){
+        
         this.collision()
         this.randomizeNumbers()
         this.clearScreen()
@@ -69,6 +72,7 @@ const popinoGame={
         this.drawBalconies()
         this.drawEnemies()
         this.dog.draw()
+        this.drawScore()
         this.balconies.forEach(element => {
             element.draw()
         });
@@ -122,9 +126,9 @@ const popinoGame={
         
         //Dibujamos a los enemigos
         this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,440,this.canvasSize,1,"./img/vecino1.png"))
-        this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,470,this.canvasSize,1,"./img/vecino2.png"))
+        this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+2048,470,this.canvasSize,1,"./img/vecino2.png"))
         this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,470,this.canvasSize,1,"./img/stop_vecino3.png"))
-        this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,440,this.canvasSize,1,'./img/sanitario.png'))
+        this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+2048,440,this.canvasSize,1,'./img/sanitario.png'))
 
     },
     drawDog(){
@@ -174,9 +178,13 @@ if(this.balconies[0].balconyPosition.x<0) {
         this.ctx.clearRect(0,0,this.canvasSize.w,this.canvasSize.h)
     },
     moveBackground(direction){
-        if(this.player.playersPosition.x<512-100) this.player.move(direction)
-        else {(
-            this.player.playersPosition.x=512-100) 
+        if(this.player.playersPosition.x<512-100) {
+            this.player.move(direction)
+            this.score-=0.25}
+
+        else {this.player.playersPosition.x=512-100 
+            this.score++
+        console.log(this.score)
             if(direction!='right'){
             this.player.move(direction)}
             this.background.move(direction)
@@ -199,6 +207,14 @@ if(this.balconies[0].balconyPosition.x<0) {
         
         
     },
+
+    drawScore(){
+        this.ctx.fillStyle = "black"     
+        this.ctx.font = "bold 20px sans-serif"
+        this.ctx.textAlign= "center"
+        this.ctx.fillText(`Score: ${Math.floor(this.score)}` , 512, 50);
+        console.log("puntos")
+      },
     setEventListeners() {
         document.onkeydown = e => {
             e.keyCode === 37 ? this.moveBackground('left') : null
