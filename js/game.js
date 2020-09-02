@@ -18,7 +18,10 @@ const popinoGame={
     description:'The best game of the world',
     ctx:undefined,
     score:0,
+    numberOfLifes:4,
+    lifes:[],
     player:undefined,
+    life:undefined,
     background:undefined,
     enemy:undefined,
     enemies:[],
@@ -53,6 +56,7 @@ const popinoGame={
         this.drawScore()
         this.drawEnemies()
         this.drawFallOutObjects()
+        this.drawLife(this.numberOfLifes)
         setInterval(() => {
             this.drawGame()
 
@@ -73,6 +77,10 @@ const popinoGame={
         this.drawEnemies()
         this.dog.draw()
         this.drawScore()
+        this.lifes.forEach(element => {
+        element.draw()
+            
+        });
         this.balconies.forEach(element => {
             element.draw()
         });
@@ -126,9 +134,9 @@ const popinoGame={
         
         //Dibujamos a los enemigos
         this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,440,this.canvasSize,1,"./img/vecino1.png"))
-        this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+2048,470,this.canvasSize,1,"./img/vecino2.png"))
+        // this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+2048,470,this.canvasSize,1,"./img/vecino2.png"))
         this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,470,this.canvasSize,1,"./img/stop_vecino3.png"))
-        this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+2048,440,this.canvasSize,1,'./img/sanitario.png'))
+        // this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+2048,440,this.canvasSize,1,'./img/sanitario.png'))
 
     },
     drawDog(){
@@ -184,7 +192,6 @@ if(this.balconies[0].balconyPosition.x<0) {
 
         else {this.player.playersPosition.x=512-100 
             this.score++
-        console.log(this.score)
             if(direction!='right'){
             this.player.move(direction)}
             this.background.move(direction)
@@ -213,7 +220,13 @@ if(this.balconies[0].balconyPosition.x<0) {
         this.ctx.font = "bold 20px sans-serif"
         this.ctx.textAlign= "center"
         this.ctx.fillText(`Score: ${Math.floor(this.score)}` , 512, 50);
-        console.log("puntos")
+      },
+
+    drawLife(lifes){
+        for(i=0;i<=lifes;i++){
+        this.lifes.push(new Lifes(this.ctx,850 + (i*30),45,25,25,'./img/red_heart.png'))}
+
+        // this.life = new Lifes(this.ctx,850,45,25,25,'./img/red_heart.png')
       },
     setEventListeners() {
         document.onkeydown = e => {
@@ -225,37 +238,22 @@ if(this.balconies[0].balconyPosition.x<0) {
              this.moveBackground('right') 
             
         }
-       
-        
-
-    
-},
+       },
 
 
 collision(){
 
-    // this.player.playersPosition.x
-    // this.player.playersPosition.y
-    // this.player.playersWidth.w
-    // this.player.playersWidth.h
+   
 
     this.fallOutObjects.forEach(element => {
 
-    //     console.log("ppx",this.player.playersPosition.x)
-    // console.log("ppy",this.player.playersPosition.y)
-    // console.log("pw",this.player.playersWidth.w)
-    // console.log("ph",this.player.playersWidth.h)
-    // console.log("fox",element.fallOutObjectPosition.x)
-    // console.log("foy",element.fallOutObjectPosition.y)
-    // console.log("fw",element.fallOutObjectSize.w)
-    // console.log("fh",element.fallOutObjectSize.h)
+    
 
-
-        if (this.player.playersPosition.x+40 < element.fallOutObjectPosition.x + element.fallOutObjectSize.w &&
-            this.player.playersPosition.x-60 + this.player.playersWidth.w > element.fallOutObjectPosition.x &&
-            this.player.playersPosition.y+20 < element.fallOutObjectPosition.y + element.fallOutObjectSize.h &&
-            this.player.playersWidth.h + this.player.playersPosition.y-50 > element.fallOutObjectPosition.y) {
-                alert("colision")
+        if (this.player.playersPosition.x+45 < element.fallOutObjectPosition.x + element.fallOutObjectSize.w &&
+            this.player.playersPosition.x-65 + this.player.playersWidth.w > element.fallOutObjectPosition.x &&
+            this.player.playersPosition.y+25 < element.fallOutObjectPosition.y + element.fallOutObjectSize.h &&
+            this.player.playersWidth.h + this.player.playersPosition.y-55 > element.fallOutObjectPosition.y) {
+                // this.removeLife()
          }
 
 
@@ -266,25 +264,30 @@ collision(){
     //colision con los enemigos de la calzada superior ( y=440 )
     this.enemies.forEach(element => {
         if(this.player.playersPosition.y==440 && element.enemiesPosition.y==440){
-        if (this.player.playersPosition.x+50 < element.enemiesPosition.x + element.enemiesWidth.w &&
-            this.player.playersPosition.x-70 + this.player.playersWidth.w > element.enemiesPosition.x &&
-            this.player.playersPosition.y+30 < element.enemiesPosition.y + element.enemiesWidth.h &&
-            this.player.playersWidth.h + this.player.playersPosition.y-60 > element.enemiesPosition.y) {
+        if (this.player.playersPosition.x+55 < element.enemiesPosition.x + element.enemiesWidth.w &&
+            this.player.playersPosition.x-75 + this.player.playersWidth.w > element.enemiesPosition.x &&
+            this.player.playersPosition.y+35 < element.enemiesPosition.y + element.enemiesWidth.h &&
+            this.player.playersWidth.h + this.player.playersPosition.y-65 > element.enemiesPosition.y) {
                 alert("colision")
+                // this.numberOfLifes--
+                // this.lifes.draw(this.numberOfLifes)
+                
          }
         }
 
          
         
     })
-    //colision con los enemigos de la calzada superior ( y=4700 )
+    //colision con los enemigos de la calzada superior ( y=470 )
     this.enemies.forEach(element => {
         if(this.player.playersPosition.y==470 && element.enemiesPosition.y==470){
-        if (this.player.playersPosition.x+50 < element.enemiesPosition.x + element.enemiesWidth.w &&
-            this.player.playersPosition.x-70 + this.player.playersWidth.w > element.enemiesPosition.x &&
-            this.player.playersPosition.y+30 < element.enemiesPosition.y + element.enemiesWidth.h &&
-            this.player.playersWidth.h + this.player.playersPosition.y-60 > element.enemiesPosition.y) {
+        if (this.player.playersPosition.x+55 < element.enemiesPosition.x + element.enemiesWidth.w &&
+            this.player.playersPosition.x-75 + this.player.playersWidth.w > element.enemiesPosition.x &&
+            this.player.playersPosition.y+35 < element.enemiesPosition.y + element.enemiesWidth.h &&
+            this.player.playersWidth.h + this.player.playersPosition.y-65 > element.enemiesPosition.y) {
                 alert("colision")
+                // this.numberOfLifes--
+                // this.lifes.draw(this.numberOfLifes)
          }
         }
 
@@ -295,21 +298,16 @@ collision(){
     
     
     
+},
+removeLife(){
+    
+    this.lifes.shift()
 }
 
 }
 
 
-// this.player.playersPosition.x
-//     this.player.playersPosition.y
-//     this.player.playersWidth.w
-//     this.player.playersWidth.y
-//     this.fallOutObjects.forEach(element => {
-//         if (this.player.playersPosition.x < rect2.x + rect2.width &&
-//             this.player.playersPosition.x + this.player.playersWidth.w > rect2.x &&
-//             this.player.playersPosition.y < rect2.y + rect2.height &&
-//             this.player.playersWidth.h + this.player.playersPosition.y > rect2.y) {
-//              // ¡colision detecta
+
 
 
 
