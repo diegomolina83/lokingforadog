@@ -108,10 +108,10 @@ const popinoGame={
         this.balconies.push(this.balcony3)
 
         //Dibujamos objetos que caen de los balcones
-        this.fallOutObject0=new FallOutObjects(this.ctx,40,40,57+1024,240,this.canvasSize,'img/papel.png',1)
-        this.fallOutObject1=new FallOutObjects(this.ctx,40,40,290+1024,240,this.canvasSize,'img/virus.png',1)
-        this.fallOutObject2=new FallOutObjects(this.ctx,30,30,626+1024,240,this.canvasSize,'img/caca.png',1)
-        this.fallOutObject3=new FallOutObjects(this.ctx,30,30,875+1024,225,this.canvasSize,'img/sandia.png',1)
+        this.fallOutObject0=new FallOutObjects(this.ctx,40,40,57+1024,240,this.canvasSize,'img/caca.png',1)
+        this.fallOutObject1=new FallOutObjects(this.ctx,60,60,290+1024,240,this.canvasSize,'img/virus.png',1)
+        this.fallOutObject2=new FallOutObjects(this.ctx,50,50,626+1024,240,this.canvasSize,'img/papel.png',1)
+        this.fallOutObject3=new FallOutObjects(this.ctx,50,50,875+1024,225,this.canvasSize,'img/sandia.png',1)
 
         this.fallOutObjects.push(this.fallOutObject0)
         this.fallOutObjects.push(this.fallOutObject1)
@@ -139,7 +139,7 @@ const popinoGame={
     drawBackground(){
         const img = new Image();
         const backgroundSpeed = playerSpeedX*(-1)
-        img.src = 'http://www.cylabeth.com/ironhack/img/background_game.jpg'
+        img.src = './img/background_game.jpg'
         this.background= new Background(this.ctx,0,0,this.canvasSize.w,this.canvasSize.h,backgroundSpeed,img)
     },
     drawBalconies(){
@@ -225,26 +225,56 @@ collision(){
 
     this.fallOutObjects.forEach(element => {
 
-        console.log("ppx",this.player.playersPosition.x)
-    console.log("ppy",this.player.playersPosition.y)
-    console.log("pw",this.player.playersWidth.w)
-    console.log("ph",this.player.playersWidth.h)
-    console.log("fox",element.fallOutObjectPosition.x)
-    console.log("foy",element.fallOutObjectPosition.y)
-    console.log("fw",element.fallOutObjectSize.w)
-    console.log("fh",element.fallOutObjectSize.h)
+    //     console.log("ppx",this.player.playersPosition.x)
+    // console.log("ppy",this.player.playersPosition.y)
+    // console.log("pw",this.player.playersWidth.w)
+    // console.log("ph",this.player.playersWidth.h)
+    // console.log("fox",element.fallOutObjectPosition.x)
+    // console.log("foy",element.fallOutObjectPosition.y)
+    // console.log("fw",element.fallOutObjectSize.w)
+    // console.log("fh",element.fallOutObjectSize.h)
 
 
-        console.log("ppy",this.player.playersPosition.y+this.player.playersWidth.h,"opy",element.fallOutObjectPosition.y)
         if (this.player.playersPosition.x+40 < element.fallOutObjectPosition.x + element.fallOutObjectSize.w &&
             this.player.playersPosition.x-60 + this.player.playersWidth.w > element.fallOutObjectPosition.x &&
             this.player.playersPosition.y+20 < element.fallOutObjectPosition.y + element.fallOutObjectSize.h &&
             this.player.playersWidth.h + this.player.playersPosition.y-50 > element.fallOutObjectPosition.y) {
-                console.log("colision")
                 alert("colision")
          }
+
+
+
         
     });
+
+    //colision con los enemigos de la calzada superior ( y=440 )
+    this.enemies.forEach(element => {
+        if(this.player.playersPosition.y==440 && element.enemiesPosition.y==440){
+        if (this.player.playersPosition.x+50 < element.enemiesPosition.x + element.enemiesWidth.w &&
+            this.player.playersPosition.x-70 + this.player.playersWidth.w > element.enemiesPosition.x &&
+            this.player.playersPosition.y+30 < element.enemiesPosition.y + element.enemiesWidth.h &&
+            this.player.playersWidth.h + this.player.playersPosition.y-60 > element.enemiesPosition.y) {
+                alert("colision")
+         }
+        }
+
+         
+        
+    })
+    //colision con los enemigos de la calzada superior ( y=4700 )
+    this.enemies.forEach(element => {
+        if(this.player.playersPosition.y==470 && element.enemiesPosition.y==470){
+        if (this.player.playersPosition.x+50 < element.enemiesPosition.x + element.enemiesWidth.w &&
+            this.player.playersPosition.x-70 + this.player.playersWidth.w > element.enemiesPosition.x &&
+            this.player.playersPosition.y+30 < element.enemiesPosition.y + element.enemiesWidth.h &&
+            this.player.playersWidth.h + this.player.playersPosition.y-60 > element.enemiesPosition.y) {
+                alert("colision")
+         }
+        }
+
+         
+        
+    })
 
     
     
