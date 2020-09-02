@@ -37,10 +37,9 @@ class FallOutObjects {
 
   fall() {
     setInterval(() => {
-      console.log("Cae el objeto");
 
       this.fallOutObjectPosition.y += 0.3; //this.randomSpeed()
-    }, 10000);
+    }, 5000);
     if (this.fallOutObjectPosition.y > 600) this.fallOutObjectPosition.y = 240;
   }
   move(direction) {

@@ -123,7 +123,7 @@ const popinoGame={
         //Dibujamos a los enemigos
         this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,440,this.canvasSize,1,"./img/vecino1.png"))
         this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,470,this.canvasSize,1,"./img/vecino2.png"))
-        this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,470,this.canvasSize,1,"./img/vecino1.png"))
+        this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,470,this.canvasSize,1,"./img/stop_vecino3.png"))
         this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,440,this.canvasSize,1,'./img/sanitario.png'))
 
     },
@@ -157,7 +157,6 @@ if(this.balconies[0].balconyPosition.x<0) {
             this.fallOutObjects[0].fallOutObjectPosition.x +=1024
             this.fallOutObjects[0].draw()
             this.fallOutObjects.push (this.fallOutObjects.shift())}
-        console.log("salida",this.fallOutObjects)
             
     },
     drawEnemies(){
@@ -225,15 +224,29 @@ collision(){
     // this.player.playersWidth.h
 
     this.fallOutObjects.forEach(element => {
-        if (this.player.playersPosition.x < element.fallOutObjectPosition.x + element.fallOutObjectSize.w &&
-            this.player.playersPosition.x + this.player.playersWidth.w > element.fallOutObjectPosition.x &&
-            this.player.playersPosition.y < element.fallOutObjectPosition.y + element.fallOutObjectSize.h &&
-            this.player.playersWidth.h + element.fallOutObjectPosition.y > element.fallOutObjectPosition.y) {
-             alert("colision")
+
+        console.log("ppx",this.player.playersPosition.x)
+    console.log("ppy",this.player.playersPosition.y)
+    console.log("pw",this.player.playersWidth.w)
+    console.log("ph",this.player.playersWidth.h)
+    console.log("fox",element.fallOutObjectPosition.x)
+    console.log("foy",element.fallOutObjectPosition.y)
+    console.log("fw",element.fallOutObjectSize.w)
+    console.log("fh",element.fallOutObjectSize.h)
+
+
+        console.log("ppy",this.player.playersPosition.y+this.player.playersWidth.h,"opy",element.fallOutObjectPosition.y)
+        if (this.player.playersPosition.x+40 < element.fallOutObjectPosition.x + element.fallOutObjectSize.w &&
+            this.player.playersPosition.x-60 + this.player.playersWidth.w > element.fallOutObjectPosition.x &&
+            this.player.playersPosition.y+20 < element.fallOutObjectPosition.y + element.fallOutObjectSize.h &&
+            this.player.playersWidth.h + this.player.playersPosition.y-50 > element.fallOutObjectPosition.y) {
+                console.log("colision")
+                alert("colision")
          }
         
     });
-    //player con objetos
+
+    
     
     
 }
