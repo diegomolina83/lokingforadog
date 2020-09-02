@@ -32,6 +32,7 @@ const popinoGame={
     balcony2:undefined,
     randomPosition:undefined,
     fallOutObject:undefined,
+    collisioned:false,
     fallOutObjects:[],
 
     balconies:[
@@ -223,8 +224,10 @@ if(this.balconies[0].balconyPosition.x<0) {
       },
 
     drawLife(lifes){
+        console.log(this.numberOfLifes)
         for(i=0;i<=lifes;i++){
         this.lifes.push(new Lifes(this.ctx,850 + (i*30),45,25,25,'./img/red_heart.png'))}
+        
 
         // this.life = new Lifes(this.ctx,850,45,25,25,'./img/red_heart.png')
       },
@@ -248,12 +251,14 @@ collision(){
     this.fallOutObjects.forEach(element => {
 
     
-
+    //colision con los objetos que caen
         if (this.player.playersPosition.x+45 < element.fallOutObjectPosition.x + element.fallOutObjectSize.w &&
             this.player.playersPosition.x-65 + this.player.playersWidth.w > element.fallOutObjectPosition.x &&
             this.player.playersPosition.y+25 < element.fallOutObjectPosition.y + element.fallOutObjectSize.h &&
             this.player.playersWidth.h + this.player.playersPosition.y-55 > element.fallOutObjectPosition.y) {
-                // this.removeLife()
+                this.player.playersPosition.x -= 150
+                this.collisioned=true
+                this.removeLife(this.collisioned)
          }
 
 
@@ -268,8 +273,12 @@ collision(){
             this.player.playersPosition.x-75 + this.player.playersWidth.w > element.enemiesPosition.x &&
             this.player.playersPosition.y+35 < element.enemiesPosition.y + element.enemiesWidth.h &&
             this.player.playersWidth.h + this.player.playersPosition.y-65 > element.enemiesPosition.y) {
-                alert("colision")
-                // this.numberOfLifes--
+                this.player.playersPosition.x -= 150
+                
+                this.collisioned=true
+                this.removeLife(this.collisioned)
+                console.log(this.numberOfLifes)
+                
                 // this.lifes.draw(this.numberOfLifes)
                 
          }
@@ -278,15 +287,20 @@ collision(){
          
         
     })
-    //colision con los enemigos de la calzada superior ( y=470 )
+    //colision con los enemigos de la calzada inferior ( y=470 )
     this.enemies.forEach(element => {
         if(this.player.playersPosition.y==470 && element.enemiesPosition.y==470){
         if (this.player.playersPosition.x+55 < element.enemiesPosition.x + element.enemiesWidth.w &&
             this.player.playersPosition.x-75 + this.player.playersWidth.w > element.enemiesPosition.x &&
             this.player.playersPosition.y+35 < element.enemiesPosition.y + element.enemiesWidth.h &&
             this.player.playersWidth.h + this.player.playersPosition.y-65 > element.enemiesPosition.y) {
-                alert("colision")
-                // this.numberOfLifes--
+                // alert("colision")
+                this.player.playersPosition.x -= 150
+
+                this.collisioned=true
+                this.removeLife(this.collisioned)
+                console.log(this.numberOfLifes)
+                
                 // this.lifes.draw(this.numberOfLifes)
          }
         }
@@ -299,9 +313,16 @@ collision(){
     
     
 },
-removeLife(){
+removeLife(collisioned){
     
     this.lifes.shift()
+        if(collisioned){
+            this.numberOfLifes--
+        this.collisioned=false}
+   
+    
+    
+    // this.lifes.shift()
 }
 
 }
