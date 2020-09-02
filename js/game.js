@@ -33,6 +33,7 @@ const popinoGame={
     randomPosition:undefined,
     fallOutObject:undefined,
     collisioned:false,
+    intervalId:undefined,
     fallOutObjects:[],
 
     balconies:[
@@ -57,8 +58,9 @@ const popinoGame={
         this.drawScore()
         this.drawEnemies()
         this.drawFallOutObjects()
+        this.dead()
         this.drawLife(this.numberOfLifes)
-        setInterval(() => {
+        this.intervalId= setInterval(() => {
             this.drawGame()
 
         }, 1000/this.fps);
@@ -78,6 +80,7 @@ const popinoGame={
         this.drawEnemies()
         this.dog.draw()
         this.drawScore()
+        this.dead()
         this.lifes.forEach(element => {
         element.draw()
             
@@ -134,10 +137,18 @@ const popinoGame={
 
         
         //Dibujamos a los enemigos
+        setTimeout(() => {
+            this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+2048,470,this.canvasSize,1,"./img/vecino2.png"))
+       
+        }, 20000);
+
+        setTimeout(() => {
+            this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+2048,440,this.canvasSize,1,'./img/sanitario.png'))
+            
+        }, 40000);
+        
         this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,440,this.canvasSize,1,"./img/vecino1.png"))
-        // this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+2048,470,this.canvasSize,1,"./img/vecino2.png"))
         this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+1024,470,this.canvasSize,1,"./img/stop_vecino3.png"))
-        // this.enemies.push(new Enemies(this.ctx,100,100,this.randomizeNumbers()+2048,440,this.canvasSize,1,'./img/sanitario.png'))
 
     },
     drawDog(){
@@ -323,6 +334,13 @@ removeLife(collisioned){
     
     
     // this.lifes.shift()
+},
+dead(){
+    if(this.numberOfLifes<0){
+        console.log("cosa",this.intervalId)
+        clearInterval(this.intervalId)
+    }
+
 }
 
 }

@@ -42,6 +42,7 @@ class FallOutObjects {
     }, 5000);
     if (this.fallOutObjectPosition.y > 600) this.fallOutObjectPosition.y = 240;
   }
+  
   move(direction) {
     this.fallOutObjectPosition.x -= 4;
     if (this.fallOutObjectPosition.x <= -this.fallOutObjectSize.w)
