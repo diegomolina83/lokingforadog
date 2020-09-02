@@ -1,6 +1,7 @@
 window.onload = () => {
     document.getElementById('start-button').onclick = () => {
-      startGame();
+        
+        startGame();
     }
     function startGame() {
 
@@ -33,6 +34,7 @@ const popinoGame={
     randomPosition:undefined,
     fallOutObject:undefined,
     collisioned:false,
+    framesCounter:0,
     intervalId:undefined,
     fallOutObjects:[],
 
@@ -61,6 +63,10 @@ const popinoGame={
         this.dead()
         this.drawLife(this.numberOfLifes)
         this.intervalId= setInterval(() => {
+            if(this.framesCounter>5000){
+          this.framesCounter=0  
+                                        }
+            this.framesCounter++
             this.drawGame()
 
         }, 1000/this.fps);
@@ -78,7 +84,7 @@ const popinoGame={
         this.drawFallOutObjects()
         this.drawBalconies()
         this.drawEnemies()
-        this.dog.draw()
+        this.dog.draw(this.framesCounter)
         this.drawScore()
         this.dead()
         this.lifes.forEach(element => {
@@ -113,26 +119,20 @@ const popinoGame={
     pushElements(){
         
         //Dibujamos balcones
-        this.balcony0=new Balcony(this.ctx,30,30,57+1024,230,this.canvasSize,-0.3,'./img/window1.png')
-        this.balcony1=new Balcony(this.ctx,31,31,290+1024,230,this.canvasSize,-0.3,'./img/window2.png')
-        this.balcony2=new Balcony(this.ctx,32,32,626+1024,230,this.canvasSize,-0.3,'./img/window3.png')
-        this.balcony3=new Balcony(this.ctx,33,33,875+1024,215,this.canvasSize,-0.3,'./img/window4.png')
+       
 
-        this.balconies.push(this.balcony0)
-        this.balconies.push(this.balcony1)
-        this.balconies.push(this.balcony2)
-        this.balconies.push(this.balcony3)
+        this.balconies.push(new Balcony(this.ctx,30,30,57+1024,230,this.canvasSize,-0.3,'./img/window1.png'))
+        this.balconies.push(new Balcony(this.ctx,31,31,290+1024,230,this.canvasSize,-0.3,'./img/window2.png'))
+        this.balconies.push(new Balcony(this.ctx,32,32,626+1024,230,this.canvasSize,-0.3,'./img/window3.png'))
+        this.balconies.push(new Balcony(this.ctx,33,33,875+1024,215,this.canvasSize,-0.3,'./img/window4.png'))
 
-        //Dibujamos objetos que caen de los balcones
-        this.fallOutObject0=new FallOutObjects(this.ctx,40,40,57+1024,240,this.canvasSize,'img/caca.png',1)
-        this.fallOutObject1=new FallOutObjects(this.ctx,60,60,290+1024,240,this.canvasSize,'img/virus.png',1)
-        this.fallOutObject2=new FallOutObjects(this.ctx,50,50,626+1024,240,this.canvasSize,'img/papel.png',1)
-        this.fallOutObject3=new FallOutObjects(this.ctx,50,50,875+1024,225,this.canvasSize,'img/sandia.png',1)
-
-        this.fallOutObjects.push(this.fallOutObject0)
-        this.fallOutObjects.push(this.fallOutObject1)
-        this.fallOutObjects.push(this.fallOutObject2)
-        this.fallOutObjects.push(this.fallOutObject3)
+        // //Dibujamos objetos que caen de los balcones
+        
+        
+        this.fallOutObjects.push(new FallOutObjects(this.ctx,40,40,57+1024,240,this.canvasSize,'img/caca.png',1))
+        this.fallOutObjects.push(new FallOutObjects(this.ctx,60,60,290+1024,240,this.canvasSize,'img/virus.png',1))
+        this.fallOutObjects.push(new FallOutObjects(this.ctx,50,50,626+1024,240,this.canvasSize,'img/papel.png',1))
+        this.fallOutObjects.push(new FallOutObjects(this.ctx,50,50,875+1024,225,this.canvasSize,'img/sandia.png',1))
 
 
         
