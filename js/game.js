@@ -53,7 +53,8 @@ const popinoGame={
     fallOutObjects:[],
     sounds:{
     backgroundMusic : new Audio('./sounds/resistire.mp3'),
-    jump: new Audio('./sounds/jump.ogg')
+    jump: new Audio('./sounds/jump.ogg'),
+    hit: new Audio("./sounds/hit.ogg")
     },
     balconies:[
         
@@ -66,6 +67,7 @@ const popinoGame={
          
     },
     init(id){
+        this.sounds.hit.value=1,
         this.sounds.jump.volume=1,
         this.sounds.backgroundMusic.volume = 0.7,
         this.sounds.backgroundMusic.play();
@@ -309,6 +311,7 @@ collision(){
             this.player.playersPosition.x-30 + this.player.playersWidth.w > element.enemiesPosition.x &&
             this.player.playersPosition.y+10 < element.enemiesPosition.y + element.enemiesWidth.h &&
             this.player.playersWidth.h + this.player.playersPosition.y+30 > element.enemiesPosition.y) {
+                this.sounds.hit.play()
                 this.player.playersPosition.x -= 150
                 element.enemiesPosition.x += 500
                 this.collisioned=true
@@ -331,6 +334,7 @@ collision(){
             this.player.playersPosition.y+10 < element.enemiesPosition.y + element.enemiesWidth.h &&
             this.player.playersWidth.h + this.player.playersPosition.y-30 > element.enemiesPosition.y) {
                 // alert("colision")
+                this.sounds.hit.play()
                 this.player.playersPosition.x -= 150
                 element.enemiesPosition.x += 500
                 this.collisioned=true
