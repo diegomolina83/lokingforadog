@@ -34,9 +34,10 @@ const popinoGame={
     randomPosition:undefined,
     fallOutObject:undefined,
     collisioned:false,
-    framesCounter:0,
+    framesCounter:1,
     intervalId:undefined,
     fallOutObjects:[],
+    backgroundMusic : new Audio('./sounds/resistire.mp3'),
 
     balconies:[
         
@@ -49,6 +50,9 @@ const popinoGame={
          
     },
     init(id){
+        
+        this.backgroundMusic.volume = 0.7;
+        this.backgroundMusic.play();
         this.setEventListeners()
         this.canvasId=id,
         this.ctx=document.getElementById(this.canvasId).getContext('2d')
@@ -56,7 +60,10 @@ const popinoGame={
         this.drawBalconies()
         this.drawPlayer()
         this.drawBackground()
-        this.drawDog()
+        setTimeout(() => {
+            
+            this.drawDog()
+        }, 15);
         this.drawScore()
         this.drawEnemies()
         this.drawFallOutObjects()
@@ -64,8 +71,8 @@ const popinoGame={
         this.drawLife(this.numberOfLifes)
         this.intervalId= setInterval(() => {
             if(this.framesCounter>5000){
-          this.framesCounter=0  
-                                        }
+                this.framesCounter=0  
+            }
             this.framesCounter++
             this.drawGame()
 
@@ -78,7 +85,6 @@ const popinoGame={
         this.randomizeNumbers()
         this.clearScreen()
         this.background.draw()
-        this.player.draw()
         this.moveBackground()
         this.player.move()
         this.drawFallOutObjects()
@@ -88,13 +94,13 @@ const popinoGame={
         this.drawScore()
         this.dead()
         this.lifes.forEach(element => {
-        element.draw()
+            element.draw()
             
         });
         this.balconies.forEach(element => {
             element.draw()
         });
-
+        
         this.enemies.forEach(element => {
             element.draw()
             
@@ -105,7 +111,8 @@ const popinoGame={
         this.fallOutObjects.forEach(element => {
             element.fall()
         });
-       
+        this.player.draw()
+        
         
      
                  
@@ -338,10 +345,13 @@ removeLife(collisioned){
 dead(){
     if(this.numberOfLifes<0){
         console.log("cosa",this.intervalId)
+        console.log(this.backgroundMusic)
+        this.backgroundMusic.pause()
         clearInterval(this.intervalId)
     }
 
 }
+
 
 }
 
