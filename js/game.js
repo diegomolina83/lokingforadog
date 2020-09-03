@@ -220,12 +220,12 @@ if(this.balconies[0].balconyPosition.x<0) {
             this.player.move(direction)
             this.score-=0.25}
 
-        else {this.player.playersPosition.x=512-100 
+        else {
+            this.player.playersPosition.x=512-100 
             this.score++
             if(direction!='right'){
             this.player.move(direction)}
             this.background.move(direction)
-          
             this.balconies.forEach(element=>{
                 element.move(direction)
             })
@@ -258,7 +258,6 @@ if(this.balconies[0].balconyPosition.x<0) {
         this.lifes.push(new Lifes(this.ctx,850 + (i*30),45,25,25,'./img/red_heart.png'))}
         
 
-        // this.life = new Lifes(this.ctx,850,45,25,25,'./img/red_heart.png')
       },
     setEventListeners() {
         document.onkeydown = e => {
@@ -305,7 +304,7 @@ collision(){
             this.player.playersPosition.y+10 < element.enemiesPosition.y + element.enemiesWidth.h &&
             this.player.playersWidth.h + this.player.playersPosition.y+30 > element.enemiesPosition.y) {
                 this.player.playersPosition.x -= 150
-                
+                element.enemiesPosition.x += 500
                 this.collisioned=true
                 this.removeLife(this.collisioned)
                 console.log(this.numberOfLifes)
@@ -327,7 +326,7 @@ collision(){
             this.player.playersWidth.h + this.player.playersPosition.y-30 > element.enemiesPosition.y) {
                 // alert("colision")
                 this.player.playersPosition.x -= 150
-
+                element.enemiesPosition.x += 500
                 this.collisioned=true
                 this.removeLife(this.collisioned)
                 console.log(this.numberOfLifes)
