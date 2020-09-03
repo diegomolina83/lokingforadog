@@ -1,8 +1,8 @@
 window.onload = () => {
-    document.getElementById('start-button').onclick = () => {
+    // document.getElementById('start-button').onclick = () => {
         
         startGame();
-    }
+    // }
     function startGame() {
 
         indexOfGame.draw('canvas')
@@ -58,7 +58,9 @@ const popinoGame={
     jump: new Audio('./sounds/jump.ogg'),
     hit: new Audio("./sounds/hit.ogg"),
     happyEnd: new Audio ("./sounds/happyEnd.mp3"),
-    hitObject:new Audio ("./sounds/golpeObjeto.ogg")
+    hitObject:new Audio ("./sounds/golpeObjeto.ogg"),
+    coff:new Audio("./sounds/tos.mp3"),
+    almond:new Audio("./sound/almendras.mp3")
     },
     balconies:[
         
@@ -71,8 +73,8 @@ const popinoGame={
          
     },
     init(id){
-        this.sounds.hit.value=1,
-        this.sounds.jump.volume=1,
+        // this.sounds.hit.value=1,
+        // this.sounds.jump.volume=1,
         this.sounds.backgroundMusic.volume = 0.7,
         this.sounds.backgroundMusic.play();
         this.setEventListeners()
@@ -373,11 +375,22 @@ removeLife(collisioned){
     // this.lifes.shift()
 },
 dead(){
+    this.deadImage = new Image()
+    this.deadImage.src = 'img/game_over.png'
     if(this.numberOfLifes<0){
         console.log("cosa",this.intervalId)
         console.log(this.backgroundMusic)
         this.sounds.backgroundMusic.pause()
+        this.sounds.coff.play()
         clearInterval(this.intervalId)
+        this.clearScreen()
+        this.enemies=[]
+        this.fallOutObjects=[]
+        this.lifes=[]
+        this.balconies=[]
+        this.player={}
+        this.sounds.almond.play()
+        this.ctx.drawImage(this.deadImage,0,0,1024,600)
     }
 
 },
