@@ -50,6 +50,7 @@ const popinoGame={
     collisioned:false,
     framesCounter:1,
     intervalId:undefined,
+    isHappyEnd:false,
     fallOutObjects:[],
     sounds:{
     backgroundMusic : new Audio('./sounds/resistire.mp3'),
@@ -95,6 +96,7 @@ const popinoGame={
         
     },
     drawGame(){
+        this.happyEnd()
         
         this.collision()
         this.randomizeNumbers()
@@ -108,6 +110,7 @@ const popinoGame={
         this.dog.draw(this.framesCounter)
         this.drawScore()
         this.dead()
+        this.happyEnd()
         this.lifes.forEach(element => {
             element.draw()
             
@@ -179,7 +182,7 @@ const popinoGame={
 
     drawPlayer(){
         playerSpeedX= 1
-        this.player= new Players(this.ctx,100,100,75,470,this.canvasSize,3,1,100,'player.png')
+        this.player= new Players(this.ctx,63,63,75,470,this.canvasSize,3,1,100,'player.png')
         
     },
     drawBackground(){
@@ -293,6 +296,7 @@ collision(){
             this.player.playersPosition.y+10 < element.fallOutObjectPosition.y + element.fallOutObjectSize.h &&
             this.player.playersWidth.h + this.player.playersPosition.y-20 > element.fallOutObjectPosition.y) {
                 this.player.playersPosition.x -= 150
+                element.fallOutObjectPosition.y=240
                 this.collisioned=true
                 this.removeLife(this.collisioned)
          }
@@ -372,13 +376,48 @@ dead(){
         clearInterval(this.intervalId)
     }
 
+},
+
+
+happyEnd(){
+    this.isHappyEnd=true
+    if(this.score>=100){
+        clearInterval(this.intervalId)
+        this.player2= new Players(this.ctx,63,63,75,470,this.canvasSize,3,1,100,'player.png')
+        setInterval(() => {
+        this.framesCounter++
+        this.clearScreen()
+        this.background.draw()
+        this.moveBackground()
+        this.player2.moveHappy(this.isHappyEnd)
+        this.drawBalconies()
+        this.enemies=[]
+        this.fallOutObjects=[]
+        this.lifes=[]
+        
+        this.balconies.forEach(element => {
+            element.draw()
+            
+        });
+        
+              
+       
+        this.player2.draw(this.framesCounter)
+        }, 1000/this.fps);
+        
+
+        
+        
+       
+        
+    
 }
 
 
 }
 
 
-
+}
 
 
 
