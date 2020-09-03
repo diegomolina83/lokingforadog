@@ -71,7 +71,6 @@ class Players {
                 if(this.playerIsJumping==false)
                 this.playersSpeed.y -=20
                 this.playerIsJumping= true
-
                 break;
             case 'right':
                 if(this.playersPosition.x<512-100)
@@ -98,18 +97,14 @@ class Players {
         this.playersSpeed.y *= 0.9;// friction
 
         //para mantenerlo por encima de la linea de suelo
-        if (this.playersPosition.y > 440) {
-            console.log(this.playersPosition.y)
+        if ((this.playersPosition.y>470 && this.dimension=='down') || this.playersPosition.y > 440 && this.dimension!='down') {
+
             this.playerIsJumping= false;
             if (this.dimension=='down') this.playersPosition.y=470
             else if(this.dimension=='up' && this.playersPosition.y==470) this.playersPosition.y=440
             else  this.playersPosition.y = 440;
             this.playersSpeed.y = 0;
-            
-           
         
-          } else if (this.playersPosition.y>450){
-              alert("fistro")
           }
          
          
