@@ -12,15 +12,17 @@ class Dog {
         this.speed=3
         this.canvasSize = canvasSize
         this.dogImage = new Image()
-        this.dogImage.src = 'http://www.cylabeth.com/ironhack/img/running_dog.png'
+        this.dogImage.src = './img/running_dog.png'
         this.imageInstance = undefined
         this.totalFramesOfDog = 21
         this.imageFrameNumber = 0
-        this.widthOfImage = this.dogImage.width // el ancho de la imágen TOTAL
-        this.heightOfImage = this.dogImage.height  // el alto de la imágen TOTAL
+        this.widthOfImage = 2897 // el ancho de la imágen TOTAL        
+        this.heightOfImage = 160  // el alto de la imágen TOTAL
         this.widthOfSingleImage = this.widthOfImage / this.totalFramesOfDog// El ancho de cada imágen del sprite
     }
     draw(framesCounter) {
+        console.log("1",this.dogImage)
+        console.log("2",this.heightOfImage)
         this.imageFrameNumber = framesCounter; // suma un frame para que el perrillo se mueva
         this.imageFrameNumber = this.imageFrameNumber % this.totalFramesOfDog // va desplazando la imágen para dar la idea de movimiento...
         this.ctx.drawImage(this.dogImage,

@@ -5,9 +5,23 @@ window.onload = () => {
     }
     function startGame() {
 
-        popinoGame.init('canvas')
+        indexOfGame.draw('canvas')
         }
 };
+
+const indexOfGame={
+    canvasId:undefined,
+    
+    
+    draw(id){
+        this.canvasId=id,
+        this.ctx=document.getElementById(this.canvasId).getContext('2d')
+        this.ctx.fillRect(0,0,1024,600);
+        setTimeout(() => {
+            popinoGame.init('canvas')
+        }, 5000);
+    }
+}
 
 
 const popinoGame={
@@ -60,10 +74,7 @@ const popinoGame={
         this.drawBalconies()
         this.drawPlayer()
         this.drawBackground()
-        setTimeout(() => {
-            
-            this.drawDog()
-        }, 15);
+        this.drawDog()       
         this.drawScore()
         this.drawEnemies()
         this.drawFallOutObjects()
