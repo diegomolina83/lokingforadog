@@ -21,8 +21,7 @@ class Dog {
         this.widthOfSingleImage = this.widthOfImage / this.totalFramesOfDog// El ancho de cada imágen del sprite
     }
     draw(framesCounter) {
-        console.log("1",this.dogImage)
-        console.log("2",this.heightOfImage)
+        
         this.imageFrameNumber = framesCounter; // suma un frame para que el perrillo se mueva
         this.imageFrameNumber = this.imageFrameNumber % this.totalFramesOfDog // va desplazando la imágen para dar la idea de movimiento...
         this.ctx.drawImage(this.dogImage,

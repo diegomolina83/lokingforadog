@@ -6,8 +6,8 @@ class Enemies {
         this.ctx = ctx
 
         this.enemiesWidth = {
-            w: width,
-            h: height
+            w: 63,
+            h: 63
         } 
         this.imageOfEnemy=imageName
         this.enemiesPosition = {
@@ -18,7 +18,17 @@ class Enemies {
         this.canvasSize=canvasSize
 
         this.imageInstance = undefined
-        this.enemiesImage = undefined
+        
+        this.enemiesImage = new Image();
+        this.enemiesImage.src = this.imageOfEnemy
+        this.totalFramesOfEnemies = 22
+        this.imageFrameNumberEnemies = 0
+        this.widthOfImageEnemies = 3035//this.imageOfEnemy.width
+        this.heightOfImageEnemies = 160
+        this.widthOfSingleImageEnemy = this.widthOfImageEnemies / this.totalFramesOfEnemies
+        
+        
+        
         this.init()
 
 
@@ -28,15 +38,39 @@ class Enemies {
     this.draw()
     }
 
-    draw(){
-        this.enemiesImage = new Image();
-        this.enemiesImage.src = this.imageOfEnemy
-        this.enemiesSpeed=Math.floor(Math.random()*(8-5+5)+5)
-                
-        this.ctx.drawImage(this.enemiesImage,this.enemiesPosition.x,this.enemiesPosition.y,49,63)
+    draw(framesCounter){
+        
+
+        this.enemiesSpeed=3
+        this.imageFrameNumberEnemies = framesCounter; // suma un frame para que el perrillo se mueva
+        this.imageFrameNumberEnemies = this.imageFrameNumberEnemies % this.totalFramesOfEnemies // va desplazando la imágen para dar la idea de movimiento...
+        this.ctx.drawImage(this.enemiesImage,
+        this.imageFrameNumberEnemies * this.widthOfSingleImageEnemy, 0, this.widthOfSingleImageEnemy,
+        this.heightOfImageEnemies, this.enemiesPosition.x, this.enemiesPosition.y,
+        this.enemiesWidth.w, this.enemiesWidth.h)
+        this.move()
+        
     }
     move(){
 
         this.enemiesPosition.x-=this.enemiesSpeed
     }
 }
+
+/*
+
+
+       
+       
+        
+        
+
+
+
+
+
+
+
+
+
+*/

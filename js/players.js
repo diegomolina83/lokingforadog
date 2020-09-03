@@ -9,8 +9,8 @@ class Players {
             y:ySpeed        
         }
         this.playersWidth = {
-            w: width,
-            h: height
+            w: 63,
+            h: 63
         } 
     
         this.playersPosition = {
@@ -22,6 +22,11 @@ class Players {
         this.imageInstance=undefined
         this.playerIsJumping=false
         this.dimension=false
+        this.totalFramesOfDog = 25
+        this.imageFrameNumber = 0
+        this.widthOfImage = 2162 // el ancho de la imágen TOTAL        
+        this.heightOfImage = 100  // el alto de la imágen TOTAL
+        this.widthOfSingleImage = this.widthOfImage / this.totalFramesOfDog// El ancho de cada imágen del sprite
         
 
 
@@ -34,12 +39,18 @@ class Players {
         
     }
 
-    draw(){
+    draw(framesCounter){
         
         this.playersImage = new Image();
-        this.playersImage.src = 'img/static_character.png'
+        this.playersImage.src = 'img/character_run_right.png'
                 
-        this.ctx.drawImage(this.playersImage,this.playersPosition.x,this.playersPosition.y,49,63)
+        this.imageFrameNumber = framesCounter; // suma un frame para que el perrillo se mueva
+        this.imageFrameNumber = this.imageFrameNumber % this.totalFramesOfDog // va desplazando la imágen para dar la idea de movimiento...
+        this.ctx.drawImage(this.playersImage,
+            this.imageFrameNumber * this.widthOfSingleImage, 0, this.widthOfSingleImage,
+            this.heightOfImage, this.playersPosition.x, this.playersPosition.y,
+            this.playersWidth.w, this.playersWidth.h)
+        this.move()
   
   
 }
