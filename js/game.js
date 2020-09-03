@@ -1,6 +1,8 @@
 window.onload = () => {
     document.getElementById('reset').onclick = () => {
         location.reload()
+        location.reload()
+
     }
         startGame();
    
@@ -18,7 +20,7 @@ const indexOfGame={
         this.canvasId=id,
         this.ctx=document.getElementById(this.canvasId).getContext('2d')
         this.ctx.fillStyle="white"
-        this.ctx.font = "40px Sanserif"
+        this.ctx.font = "40px sans-serif"
         this.ctx.fillText("¡¡¡Popino!!!",10,300)
         setTimeout(() => {
             this.ctx.fillText("¡¡¡Popino!!!",250,300)            
@@ -28,13 +30,13 @@ const indexOfGame={
             
         }, 2000);
         setTimeout(() => {
-            this.ctx.fillText(".",850,300)    
+            this.ctx.fillText(".",900,300)    
         }, 3000);
         setTimeout(() => {
-            this.ctx.fillText(".",860,300)    
+            this.ctx.fillText(".",910,300)    
         }, 3500);
         setTimeout(() => {
-            this.ctx.fillText(".",870,300)    
+            this.ctx.fillText(".",920,300)    
         }, 4000);
         // this.ctx.fillRect(0,0,1024,600);
         setTimeout(() => {
@@ -63,9 +65,6 @@ const popinoGame={
     enemies:[],
     playerSpeedX:undefined,
     playerSpeedY:undefined,
-    balcony0:undefined,
-    balcony1:undefined,
-    balcony2:undefined,
     randomPosition:undefined,
     fallOutObject:undefined,
     collisioned:false,
@@ -93,13 +92,10 @@ const popinoGame={
          
     },
     init(id){
-        // this.sounds.hit.value=1,
-        // this.sounds.jump.volume=1,
-        // this.sounds.almond.volume=1
-        this.sounds.backgroundMusic.volume = 0.7,
-          
         
-               this.setEventListeners()
+        
+        this.sounds.backgroundMusic.volume = 0.7,
+        this.setEventListeners()
         this.canvasId=id,
         this.ctx=document.getElementById(this.canvasId).getContext('2d')
         this.pushElements()
@@ -120,8 +116,10 @@ const popinoGame={
             this.drawGame()
 
         }, 1000/this.fps);
-        this.sounds.coff.play()
-        this.sounds.backgroundMusic.play();
+        setTimeout(() => {
+            this.sounds.backgroundMusic.play();
+        }, 1500);
+        
     },
     drawGame(){
         this.happyEnd()
@@ -289,6 +287,7 @@ if(this.balconies[0].balconyPosition.x<0) {
         this.ctx.font = "bold 20px sans-serif"
         this.ctx.textAlign= "center"
         this.ctx.fillText(`Score: ${Math.floor(this.score)}` , 512, 50);
+        
       },
 
     drawLife(lifes){
@@ -300,7 +299,7 @@ if(this.balconies[0].balconyPosition.x<0) {
     setEventListeners() {
         document.onkeydown = e => {
             e.keyCode === 37 ? this.moveBackground('left') : null
-            e.keyCode === 17 ? this.moveBackground('jump'):null
+            e.keyCode === 32 ? this.moveBackground('jump'):null
             e.keyCode === 40 ? this.moveBackground('down'):null
             e.keyCode === 38 ? this.moveBackground('up'):null
             if(e.keyCode === 39) if(this.player.playersPosition.x<512-100)
@@ -418,7 +417,7 @@ dead(){
 
 happyEnd(){
     this.isHappyEnd=true
-    if(this.score>=1000){
+    if(this.score>=3000){
         this.happyEndImage = new Image()
         this.happyEndImage.src = 'img/final_happy.png'
         this.dogImageEnd = new Image()
