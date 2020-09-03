@@ -51,8 +51,10 @@ const popinoGame={
     framesCounter:1,
     intervalId:undefined,
     fallOutObjects:[],
+    sounds:{
     backgroundMusic : new Audio('./sounds/resistire.mp3'),
-
+    jump: new Audio('./sounds/jump.ogg')
+    },
     balconies:[
         
     ],
@@ -64,9 +66,9 @@ const popinoGame={
          
     },
     init(id){
-        
-        this.backgroundMusic.volume = 0.7;
-        this.backgroundMusic.play();
+        this.sounds.jump.volume=1,
+        this.sounds.backgroundMusic.volume = 0.7,
+        this.sounds.backgroundMusic.play();
         this.setEventListeners()
         this.canvasId=id,
         this.ctx=document.getElementById(this.canvasId).getContext('2d')
@@ -216,9 +218,13 @@ if(this.balconies[0].balconyPosition.x<0) {
         this.ctx.clearRect(0,0,this.canvasSize.w,this.canvasSize.h)
     },
     moveBackground(direction){
+        
+        if(direction=="jump") this.sounds.jump.play()
+        
         if(this.player.playersPosition.x<512-100) {
             this.player.move(direction)
             this.score-=0.25}
+        
 
         else {
             this.player.playersPosition.x=512-100 
@@ -358,7 +364,7 @@ dead(){
     if(this.numberOfLifes<0){
         console.log("cosa",this.intervalId)
         console.log(this.backgroundMusic)
-        this.backgroundMusic.pause()
+        this.sounds.backgroundMusic.pause()
         clearInterval(this.intervalId)
     }
 
