@@ -50,12 +50,15 @@ const popinoGame={
     collisioned:false,
     framesCounter:1,
     intervalId:undefined,
+    intervalId2:undefined,
     isHappyEnd:false,
     fallOutObjects:[],
     sounds:{
     backgroundMusic : new Audio('./sounds/resistire.mp3'),
     jump: new Audio('./sounds/jump.ogg'),
-    hit: new Audio("./sounds/hit.ogg")
+    hit: new Audio("./sounds/hit.ogg"),
+    happyEnd: new Audio ("./sounds/happyEnd.mp3"),
+    hitObject:new Audio ("./sounds/golpeObjeto.ogg")
     },
     balconies:[
         
@@ -299,8 +302,9 @@ collision(){
                 element.fallOutObjectPosition.y=240
                 this.collisioned=true
                 this.removeLife(this.collisioned)
-         }
+                this.sounds.hitObject.play()
 
+         }
 
 
         
@@ -381,14 +385,18 @@ dead(){
 
 happyEnd(){
     this.isHappyEnd=true
-    if(this.score>=100){
+    if(this.score>=1000){
+        this.dogImageEnd = new Image()
+        this.dogImageEnd.src = 'img/perri_esperando.png'
+        this.sounds.backgroundMusic.pause()
+        this.sounds.happyEnd.play()
         clearInterval(this.intervalId)
         this.player2= new Players(this.ctx,63,63,75,470,this.canvasSize,3,1,100,'player.png')
-        setInterval(() => {
+        this.intervalId2= setInterval(() => {
         this.framesCounter++
         this.clearScreen()
         this.background.draw()
-        this.moveBackground()
+        // this.moveBackground()
         this.player2.moveHappy(this.isHappyEnd)
         this.drawBalconies()
         this.enemies=[]
@@ -400,10 +408,15 @@ happyEnd(){
             
         });
         
+            this.ctx.drawImage(this.dogImageEnd,500,470,75,50)
               
        
         this.player2.draw(this.framesCounter)
+if(this.player2.playersPosition.x > 450){
+clearInterval(this.intervalId2)}
+
         }, 1000/this.fps);
+        
         
 
         
