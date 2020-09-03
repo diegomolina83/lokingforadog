@@ -60,7 +60,7 @@ const popinoGame={
     happyEnd: new Audio ("./sounds/happyEnd.mp3"),
     hitObject:new Audio ("./sounds/golpeObjeto.ogg"),
     coff:new Audio("./sounds/tos.mp3"),
-    almond:new Audio("./sound/almendras.mp3")
+    almond:new Audio("./sounds/almendra.mp3")
     },
     balconies:[
         
