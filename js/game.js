@@ -385,7 +385,9 @@ dead(){
 
 happyEnd(){
     this.isHappyEnd=true
-    if(this.score>=1000){
+    if(this.score>=100){
+        this.happyEndImage = new Image()
+        this.happyEndImage.src = 'img/final_happy.png'
         this.dogImageEnd = new Image()
         this.dogImageEnd.src = 'img/perri_esperando.png'
         this.sounds.backgroundMusic.pause()
@@ -412,8 +414,11 @@ happyEnd(){
               
        
         this.player2.draw(this.framesCounter)
-if(this.player2.playersPosition.x > 450){
-clearInterval(this.intervalId2)}
+    if(this.player2.playersPosition.x > 450){
+        clearInterval(this.intervalId2)
+        this.ctx.drawImage(this.happyEndImage,0,0,1024,600)
+}
+
 
         }, 1000/this.fps);
         
