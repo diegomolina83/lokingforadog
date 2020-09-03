@@ -24,7 +24,6 @@ this.draw()
     draw(){
         this.lifesImages = new Image();
         this.lifesImages.src = this.imageOfLifes
-                console.log("A dibujar corazones")
         this.ctx.drawImage(this.lifesImages,this.lifesPosition.x,this.lifesPosition.y,this.lifesSize.w,this.lifesSize.h)
     }
 }

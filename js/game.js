@@ -1,8 +1,9 @@
 window.onload = () => {
-    // document.getElementById('start-button').onclick = () => {
-        
+    document.getElementById('reset').onclick = () => {
+        location.reload()
+    }
         startGame();
-    // }
+   
     function startGame() {
 
         indexOfGame.draw('canvas')
@@ -16,16 +17,36 @@ const indexOfGame={
     draw(id){
         this.canvasId=id,
         this.ctx=document.getElementById(this.canvasId).getContext('2d')
-        this.ctx.fillRect(0,0,1024,600);
+        this.ctx.fillStyle="white"
+        this.ctx.font = "40px Sanserif"
+        this.ctx.fillText("¡¡¡Popino!!!",10,300)
+        setTimeout(() => {
+            this.ctx.fillText("¡¡¡Popino!!!",250,300)            
+        }, 1000);
+        setTimeout(() => {
+            this.ctx.fillText("¡No abras este melón!",500,300)            
+            
+        }, 2000);
+        setTimeout(() => {
+            this.ctx.fillText(".",850,300)    
+        }, 3000);
+        setTimeout(() => {
+            this.ctx.fillText(".",860,300)    
+        }, 3500);
+        setTimeout(() => {
+            this.ctx.fillText(".",870,300)    
+        }, 4000);
+        // this.ctx.fillRect(0,0,1024,600);
         setTimeout(() => {
             popinoGame.init('canvas')
-        }, 5000);
+            
+        }, 6000);
+
     }
 }
 
 
 const popinoGame={
-
     name:'Looking for a dog',
     authors:'Cynthia Gorosito / Diego Molina',
     version:'1.0.0',
@@ -54,7 +75,7 @@ const popinoGame={
     isHappyEnd:false,
     fallOutObjects:[],
     sounds:{
-    backgroundMusic : new Audio('./sounds/resistire.mp3'),
+    backgroundMusic : new Audio('./sounds/duobueno.ogg'),
     jump: new Audio('./sounds/jump.ogg'),
     hit: new Audio("./sounds/hit.ogg"),
     happyEnd: new Audio ("./sounds/happyEnd.mp3"),
@@ -69,15 +90,16 @@ const popinoGame={
     canvasSize:{
         w:1024,
         h:600
-        //Cómo pasar los datos de la etiqueta canvas
          
     },
     init(id){
         // this.sounds.hit.value=1,
         // this.sounds.jump.volume=1,
+        // this.sounds.almond.volume=1
         this.sounds.backgroundMusic.volume = 0.7,
-        this.sounds.backgroundMusic.play();
-        this.setEventListeners()
+          
+        
+               this.setEventListeners()
         this.canvasId=id,
         this.ctx=document.getElementById(this.canvasId).getContext('2d')
         this.pushElements()
@@ -98,7 +120,8 @@ const popinoGame={
             this.drawGame()
 
         }, 1000/this.fps);
-        
+        this.sounds.coff.play()
+        this.sounds.backgroundMusic.play();
     },
     drawGame(){
         this.happyEnd()
@@ -269,7 +292,6 @@ if(this.balconies[0].balconyPosition.x<0) {
       },
 
     drawLife(lifes){
-        console.log(this.numberOfLifes)
         for(i=0;i<=lifes;i++){
         this.lifes.push(new Lifes(this.ctx,850 + (i*30),45,25,25,'./img/red_heart.png'))}
         
@@ -300,6 +322,7 @@ collision(){
             this.player.playersPosition.x-30 + this.player.playersWidth.w > element.fallOutObjectPosition.x &&
             this.player.playersPosition.y+10 < element.fallOutObjectPosition.y + element.fallOutObjectSize.h &&
             this.player.playersWidth.h + this.player.playersPosition.y-20 > element.fallOutObjectPosition.y) {
+                if(this.player.playersPosition.x>=150)
                 this.player.playersPosition.x -= 150
                 element.fallOutObjectPosition.y=240
                 this.collisioned=true
@@ -315,18 +338,17 @@ collision(){
     //colision con los enemigos de la calzada superior ( y=440 )
     this.enemies.forEach(element => {
 
-        console.log("ppx",this.player.playersPosition.y,"ppy",element.enemiesPosition.y )
         if(this.player.playersPosition.y==440 && element.enemiesPosition.y==440){
         if (this.player.playersPosition.x+20 < element.enemiesPosition.x + element.enemiesWidth.w &&
             this.player.playersPosition.x-30 + this.player.playersWidth.w > element.enemiesPosition.x &&
             this.player.playersPosition.y+10 < element.enemiesPosition.y + element.enemiesWidth.h &&
             this.player.playersWidth.h + this.player.playersPosition.y+30 > element.enemiesPosition.y) {
                 this.sounds.hit.play()
+                if(this.player.playersPosition.x>=150)
                 this.player.playersPosition.x -= 150
                 element.enemiesPosition.x += 500
                 this.collisioned=true
                 this.removeLife(this.collisioned)
-                console.log(this.numberOfLifes)
                 
                 // this.lifes.draw(this.numberOfLifes)
                 
@@ -345,11 +367,11 @@ collision(){
             this.player.playersWidth.h + this.player.playersPosition.y-30 > element.enemiesPosition.y) {
                 // alert("colision")
                 this.sounds.hit.play()
+                if(this.player.playersPosition.x>=150)
                 this.player.playersPosition.x -= 150
                 element.enemiesPosition.x += 500
                 this.collisioned=true
                 this.removeLife(this.collisioned)
-                console.log(this.numberOfLifes)
                 
                 // this.lifes.draw(this.numberOfLifes)
          }
@@ -378,8 +400,6 @@ dead(){
     this.deadImage = new Image()
     this.deadImage.src = 'img/game_over.png'
     if(this.numberOfLifes<0){
-        console.log("cosa",this.intervalId)
-        console.log(this.backgroundMusic)
         this.sounds.backgroundMusic.pause()
         this.sounds.almond.play()
         clearInterval(this.intervalId)
@@ -398,7 +418,7 @@ dead(){
 
 happyEnd(){
     this.isHappyEnd=true
-    if(this.score>=100){
+    if(this.score>=1000){
         this.happyEndImage = new Image()
         this.happyEndImage.src = 'img/final_happy.png'
         this.dogImageEnd = new Image()
