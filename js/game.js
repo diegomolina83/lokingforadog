@@ -381,7 +381,7 @@ dead(){
         console.log("cosa",this.intervalId)
         console.log(this.backgroundMusic)
         this.sounds.backgroundMusic.pause()
-        this.sounds.coff.play()
+        this.sounds.almond.play()
         clearInterval(this.intervalId)
         this.clearScreen()
         this.enemies=[]
@@ -389,7 +389,7 @@ dead(){
         this.lifes=[]
         this.balconies=[]
         this.player={}
-        this.sounds.almond.play()
+        
         this.ctx.drawImage(this.deadImage,0,0,1024,600)
     }
 
