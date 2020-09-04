@@ -20,4 +20,101 @@ display:block;
 margin-top:20px;
 }
 
+body{
+    background-color: black;
+}
+canvas {
+margin-left:auto;
+margin-right:auto;
+display: none;
 
+}
+
+#reset{
+    width: 120px;
+    height: 57px;
+    margin-left:auto;
+    margin-right:auto;
+    display:inline-block;
+    margin-top:20px;
+}
+
+.buttons{
+    display:flex;
+    justify-content: space-between;
+
+}
+
+#skip{
+    
+        width: 120px;
+        height: 57px;
+        margin-left:auto;
+    margin-right:auto;
+    display:inline-block;
+    margin-top:20px;
+    
+}
+  .inicio {
+    width: 1024px;
+    height: 600px;
+    background: #000;
+    overflow: hidden;
+    display: block;
+    margin:0 auto;
+  }
+  .fade {
+    position: relative;
+    width: 100%;
+    min-height: 60vh;
+    top: -25px;
+    background-image: linear-gradient(0deg, transparent, black 75%);
+    z-index: 1;
+  }
+  .texto{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 800px;
+    color: #ffffff;
+    font-family: 'Pathway Gothic One', sans-serif;
+    font-size: 500%;
+    font-weight: 600;
+    letter-spacing: 6px;
+    line-height: 150%;
+    perspective: 400px;
+    text-align: justify;
+  }
+  .crawl {
+    position: relative;
+    top: 99999px;
+    transform-origin: 50% 100%;
+    animation: crawl 60s linear;
+  }
+  .title {
+    font-size: 90%;
+    text-align: center;
+  }
+  h1 {
+    margin: 0 0 100px;
+    text-transform: uppercase;
+  }
+  @keyframes crawl {
+      0% {
+      top: -100px;
+      transform: rotateX(20deg)  translateZ(0);
+    }
+      100% { 
+      top: -6000px;
+      transform: rotateX(25deg) translateZ(-2500px);
+    }
+  }
+
+  .hidden{
+      display:none
+  }
+
+
+  .block{
+      display:block
+  }

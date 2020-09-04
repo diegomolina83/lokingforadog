@@ -1,10 +1,29 @@
 window.onload = () => {
-    document.getElementById('reset').onclick = () => {
+    
+    let time= setTimeout(() => {
+          
+        document.querySelector(".inicio").style.display = "none"
+        document.querySelector("#canvas").style.display = "block"
+}, 10000);
+
+    let time2= setTimeout(() => {
+    startGame();
+}, 10000);
+
+document.getElementById('skip').onclick =()=>{
+    clearTimeout(time)
+    clearTimeout(time2)
+    document.querySelector(".inicio").style.display = "none"
+    document.querySelector("#canvas").style.display = "block"
+    startGame()
+}
+
+document.getElementById('reset').onclick = () => {
         location.reload()
         location.reload()
 
-    }
-        startGame();
+    
+        startGame()}
    
     function startGame() {
 
