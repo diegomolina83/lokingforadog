@@ -4,11 +4,11 @@ window.onload = () => {
           
         document.querySelector(".inicio").style.display = "none"
         document.querySelector("#canvas").style.display = "block"
-}, 10000);
+}, 45000);
 
     let time2= setTimeout(() => {
     startGame();
-}, 10000);
+}, 45000);
 
 document.getElementById('skip').onclick =()=>{
     clearTimeout(time)

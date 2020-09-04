@@ -1,0 +1,23 @@
+
+body{
+    background: #000;
+}
+
+.image-init{
+   background-image: url(../img/init_screen.png);
+   background-repeat: no-repeat;
+   background-size: 1024px 600px;
+   height:600px;
+   width:1024px;
+   display: block;
+   margin:0 auto;
+   position: relative;
+
+}
+
+.startButton{
+    position: absolute;
+    left:44%;
+    top:88%;
+    width: 120px;
+}  
