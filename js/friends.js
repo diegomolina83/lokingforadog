@@ -1,7 +1,5 @@
 class Friends  {
 
-//pendiente de ver si proyectiles son un método 
-
     constructor(ctx, width, height, x, y, canvasSize, imageName, speed){
 
         this.ctx = ctx

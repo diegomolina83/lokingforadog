@@ -12,8 +12,6 @@ class Lifes{
         this.lifesImages=undefined
         this.imageOfLifes=image
         this.init()
-
-
     }
 
 
@@ -21,6 +19,7 @@ class Lifes{
 this.draw()
     }
 
+    
     draw(){
         this.lifesImages = new Image();
         this.lifesImages.src = this.imageOfLifes

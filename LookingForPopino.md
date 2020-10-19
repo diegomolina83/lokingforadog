@@ -1,9 +1,9 @@
 # Looking For Popino
 
+Proyecto realizado por Cynthia Elizabeth Gorosito y Diego Molina Fernández para Ironhack.
 
 
-
-Bienvenidos a Looking for Popino, quarentine edition.
+Bienvenidos a Looking for Popino, quarantine edition.
 Ese juego de plataformas ,left to right se basa en la premisa de la búsqueda de nuestro gran amigo canino, 
 Popino.
 En el transcurso de la búsqueda, miles de vecinos, runners y otras especies intentarán evitar que te reunas con tu querido amigo. 
