@@ -405,7 +405,7 @@ const popinoGame = {
 
     happyEnd() {
         this.isHappyEnd = true
-        if (this.score >= 3000) {
+        if (this.score >= 1500) {
             this.happyEndImage = new Image()
             this.happyEndImage.src = 'img/final_happy.png'
             this.dogImageEnd = new Image()
