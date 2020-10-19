@@ -3,6 +3,13 @@
 Proyecto realizado por Cynthia Elizabeth Gorosito y Diego Molina Fernández para Ironhack.
 
 
+
+
+
+
+
+![Popino Logo](http://cylabeth.com/ironhack/game/logo_popino_modificado.png)
+
 Bienvenidos a Looking for Popino, quarantine edition.
 Ese juego de plataformas ,left to right se basa en la premisa de la búsqueda de nuestro gran amigo canino, 
 Popino.
